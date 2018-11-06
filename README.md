@@ -1,2 +1,2 @@
-# darling-YO.github.io
-hexo blog
+# hexo 构建博客
+hexo next主题
