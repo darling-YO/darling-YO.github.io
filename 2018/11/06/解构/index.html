@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="keywords" content="hexo,个人博客,blog">
+  <meta name="description" content="某某的个人博客">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="dns-prefetch" href="https://busuanzi.ibruce.info">
+  
+  <link rel="dns-prefetch" href="https://widget.daovoice.io">
+  <link rel="dns-prefetch" href="https://widget-static-cdn.daovoice.io">
+  <link rel="dns-prefetch" href="https://im.daovoice.io">
+  
+  
+  <link rel="dns-prefetch" href="https://hm.baidu.com/">
+  
+  
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://api.github.com">
+  <link rel="dns-prefetch" href="https://avatars3.githubusercontent.com">
+  
+  <link rel="stylesheet" type="text/css" href="/./style/main.651055.css">
+	<link rel="shortcut icon" href="/favicon.ico" title="Favicon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+	<title>解构JavaScript对象的简单介绍</title>
+  
+  <script>var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?awwssw1snsnsnn1ndndnndnd99j";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();
+  </script>
+  
+  
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/123456.js","daovoice");daovoice('init',{app_id: "123456"});daovoice('update');
+  </script>
+  
+</head>
+<body>
+<canvas id="pattern-placeholder" height="230"></canvas>
+<div class="navbar-header">
+  <a class="blog-title" href="/">Shmilyღ</a>
+  <a class="face-img" href="/">
+    <img src="http://ammgg.com/images/2018/11/06/aZ43.jpg">
+  </a>
+</div>
+<main>
+  <div class="article-title">
+    
+  
+  <h1 class="title">
+    解构JavaScript对象的简单介绍
+  </h1>
+  
+
+
+    <ul class="article-info">
+      <li>
+        发布
+        <time datetime="2018-11-06T05:52:15.000Z" itemprop="datePublished">2018-11-06</time>
+      </li>
+      <li>
+        
+    更新 <time datetime="2018-11-07T09:58:47.437Z" itemprop="dateUpdated">2018-11-07</time>
+
+      </li>
+      <li id="busuanzi_container_page_pv">
+        阅读 <span id="busuanzi_value_page_pv"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="article">
+      <div class="content">
+        <h3 id="何为解构？"><a href="#何为解构？" class="headerlink" title="何为解构？"></a><em>何为解构</em>？</h3><blockquote>
+<p>解构是ES6的重要组成部分。<br>它是一个JavaScript表达式，允许我们从数组，对象，映射和集合中提取数据。<br>它允许我们从一个对象或一个数组中的项中提取属性，一次多个。</p>
+</blockquote>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>除了箭头函数，let和const之外，解构可能是你每天都要使用的东西。我发现无论是编写客户端还是Node，都非常有用。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const person = &#123;</span><br><span class="line">  first: <span class="string">'Wes'</span>,</span><br><span class="line">  last: <span class="string">'Bos'</span>,</span><br><span class="line">  country: <span class="string">'Canada'</span>,</span><br><span class="line">  city: <span class="string">'Hamilton'</span>,</span><br><span class="line">  twitter: <span class="string">'@wesbos'</span></span><br><span class="line">&#125;;</span><br><span class="line">const first = person.first;</span><br><span class="line">const last = person.last;</span><br></pre></td></tr></table></figure>
+<p>你一遍又一遍地有这么多重复的代码，你需要从一个对象内部或一个数组内部创建一个变量。我们可以做什么而不是创建多个变量，我们在一行中对它们进行解构，如下所示：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const &#123; first, last &#125; = person;</span><br><span class="line">console.log(first); // Wes</span><br><span class="line">console.log(last); // Bos</span><br></pre></td></tr></table></figure>
+<h3 id="深度嵌套的数据"><a href="#深度嵌套的数据" class="headerlink" title="深度嵌套的数据"></a>深度嵌套的数据</h3><p>在React.js中，您经常要使用解构，因为数据嵌套在props或state中。假设我们有一些深度嵌套的数据，比如我们可能会从JSON api中获取：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const wes = &#123;</span><br><span class="line">  first: <span class="string">'Wes'</span>,</span><br><span class="line">  last: <span class="string">'Bos'</span>,</span><br><span class="line">  links: &#123;</span><br><span class="line">    social: &#123;</span><br><span class="line">      twitter: <span class="string">'https://twitter.com/wesbos'</span>,</span><br><span class="line">      facebook: <span class="string">'https://facebook.com/wesbos.developer'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    web: &#123;</span><br><span class="line">      blog: <span class="string">'https://wesbos.com'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="不解构写法"><a href="#不解构写法" class="headerlink" title="不解构写法"></a>不解构写法</h4><p>获取twitter、facebook的值:<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const twitter = wes.links.social.twitter;</span><br><span class="line">const facebook = wes.links.social.facebook;</span><br><span class="line">// Annoying!</span><br></pre></td></tr></table></figure></p>
+<h4 id="解构写法"><a href="#解构写法" class="headerlink" title="解构写法"></a>解构写法</h4><p>我们可以使用解构来做得更好！<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const &#123; twitter, facebook &#125; = wes.links.social;</span><br><span class="line">console.log(twitter, facebook); // logs the 2 variables</span><br></pre></td></tr></table></figure></p>
+
+      </div>
+        <div class="support-author">
+          <p>感谢您的阅读.
+          </p>
+        </div>
+  
+            <div class="like ">
+              <div class="like-button">
+                <a id="like-note" href="">
+                  <i class="icon-heart"></i>喜欢
+                </a>
+              </div>
+              <span id="likes-count">256</span>
+            </div>
+      
+        <div class="otherLink">
+          <div class="previous">
+          </div>
+          <div class="next">
+          </div>
+        </div>
+        <div class="comments" id="comments">
+          
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+  const gitalk = new Gitalk({
+    clientID: '8888a8888',
+    clientSecret: '8888886666666',
+    repo: 'darling-YO.github.io',
+    owner: 'admin',
+    admin: ['admin'],
+    id: location.pathname,      // Ensure uniqueness and length less than 50
+    distractionFreeMode: true
+  })
+
+  gitalk.render('comments');
+</script>
+
+
+        </div>
+      </div>
+    </div>
+   
+</main>
+<div class="footer">
+  <div class="info">
+    <p>
+    <a href="https://hexo.io"> Hexo </a> 强力驱动 |
+      <a href="https://github.com/Youthink/hexo-themes-yearn"> Yearn </a>
+      主题
+    </p>
+    <p>&copy;2013-2018 某某的博客 京ICP备xxxxxx号</p>
+  </div>
+</div>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script type="text/javascript" src="/./js/main.651055.js"></script>
+
+</body>
+</html>
