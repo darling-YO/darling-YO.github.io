@@ -1,7 +1,7 @@
 {
-    "name": "Nothing",
-    "short_name": "Nothing",
-    "start_url": "/",
+    "name": "bet",
+    "short_name": "bet",
+    "start_url": "http://newh5.430v.com",
     "display": "standalone",
     "orientation": "portrait",
     "background_color": "#fff",
