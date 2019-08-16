@@ -6,7 +6,10 @@
 	font-weight: 400;
 	font-style: normal
 }
-
+.tt{
+	font-weight: bold;
+    color: #ea4a67;
+}
 .hermit {
 	overflow: hidden;
 	background: #fff;
