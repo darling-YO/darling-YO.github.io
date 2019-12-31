@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html style="background-color: black">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>想对你说的话</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=no">
+		<style>
+			html,
+			body {
+				width: 100%;
+			}
+			
+			#leafContainer {
+				position: fixed;
+				z-index: 2;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				overflow: hidden;
+			}
+			
+			.autotype {
+				color: #fff;
+				position: absolute;
+				width: 90%;
+				height: 100vh;
+				background-color: transparent;
+				margin: 50px auto;
+				padding: 20px;
+			}
+			
+			.name {
+				padding-left: 50%;
+			}
+			
+			#leafContainer>div {
+				position: absolute;
+				;
+				-webkit-animation-iteration-count: infinite, infinite;
+				-webkit-animation-direction: normal, normal;
+				-webkit-animation-timing-function: linear, ease-in;
+			}
+			
+			#leafContainer>div>img {
+				width: 100%;
+				-webkit-animation-iteration-count: infinite;
+				-webkit-animation-direction: alternate;
+				-webkit-animation-timing-function: ease-in-out;
+				-webkit-transform-origin: 50% -100%;
+			}
+			
+			@-webkit-keyframes fade {
+				0% {
+					opacity: 1;
+				}
+				95% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			
+			@-webkit-keyframes drop {
+				0% {
+					-webkit-transform: translate(0px, -50px);
+				}
+				100% {
+					-webkit-transform: translate(0px, 650px);
+				}
+			}
+			
+			@-webkit-keyframes clockwiseSpin {
+				0% {
+					-webkit-transform: rotate(-50deg);
+				}
+				100% {
+					-webkit-transform: rotate(50deg);
+				}
+			}
+			
+			@-webkit-keyframes counterclockwiseSpinAndFlip {
+				0% {
+					-webkit-transform: scale(-1, 1) rotate(50deg);
+				}
+				100% {
+					-webkit-transform: scale(-1, 1) rotate(-50deg);
+				}
+			}
+		</style>
+		<script>
+			const NUMBER_OF_LEAVES = 50;
+
+			function init()
+
+			{
+
+				var container = document.getElementById('leafContainer');
+
+				for(var i = 0; i < NUMBER_OF_LEAVES; i++)
+
+				{
+
+					container.appendChild(createALeaf());
+
+				}
+
+			}
+
+			function randomInteger(low, high)
+
+			{
+
+				return low + Math.floor(Math.random() * (high - low));
+
+			}
+
+			function randomFloat(low, high)
+
+			{
+
+				return low + Math.random() * (high - low);
+
+			}
+
+			function pixelValue(value)
+
+			{
+
+				return value + 'px';
+
+			}
+
+			function durationValue(value)
+
+			{
+
+				return value + 's';
+
+			}
+
+			function createALeaf()
+
+			{
+
+				var leafDiv = document.createElement('div');
+
+				var image = document.createElement('img');
+
+				image.src = 'snow' + randomInteger(1, 5) + '.png';
+
+				leafDiv.style.top = "-10px";
+
+				leafDiv.style.left = pixelValue(randomInteger(0, 1000));
+
+				var spinAnimationName = (Math.random() < 0.5) ? 'clockwiseSpin' : 'counterclockwiseSpinAndFlip';
+
+				leafDiv.style.webkitAnimationName = 'fade, drop';
+
+				image.style.webkitAnimationName = spinAnimationName;
+
+				var fadeAndDropDuration = durationValue(randomFloat(5, 11));
+
+				var spinDuration = durationValue(randomFloat(4, 8));
+
+				leafDiv.style.webkitAnimationDuration = fadeAndDropDuration + ', ' + fadeAndDropDuration;
+
+				var leafDelay = durationValue(randomFloat(0, 5));
+
+				leafDiv.style.webkitAnimationDelay = leafDelay + ', ' + leafDelay;
+
+				image.style.webkitAnimationDuration = spinDuration;
+
+				leafDiv.appendChild(image);
+
+				return leafDiv;
+
+			}
+
+			window.addEventListener('load', init);
+		</script>
+	</head>
+
+	<body>
+		<div id="leafContainer"></div>
+		<div class="autotype" id="autotype">
+			<p>这是我第一次和你说新年快乐 </p>
+			<p>我不说恭喜发财</p>
+			<p> 也不说 前程似锦</p>
+			<p>我只希望你新的一年里</p>
+			<p>平平安安 快快乐乐 </p>
+			<p>愿你做一个小太阳</p>
+			<p>而我这颗万千星辰里最普通的一粒星</p>
+			<p>会永远围绕你左右</p>
+			<p>护你平安</p>
+			<p>I Miss You</p>
+			<p>新年快乐</p>
+			<p class="name">Write By 周志程</p>
+		</div>
+
+		<script src="js/jquery-2.1.0.js"></script>
+		<script>
+			$.fn.autotype = function() {
+				var $text = $(this);
+				var str = $text.html(); //返回被选 元素的内容
+				var index = 0;
+				var x = $text.html('');
+				//$text.html()和$(this).html('')有区别
+				var timer = setInterval(function() {
+					//substr(index, 1) 方法在字符串中抽取从index下标开始的一个的字符
+					var current = str.substr(index, 1);
+					if(current == '<') {
+						//indexOf() 方法返回">"在字符串中首次出现的位置。
+						index = str.indexOf('>', index) + 1;
+					} else {
+						index++;
+					}
+					//console.log(["0到index下标下的字符",str.substring(0, index)],["符号",index & 1 ? '_': '']);
+					//substring() 方法用于提取字符串中介于两个指定下标之间的字符
+					$text.html(str.substring(0, index) + (index & 1 ? '_' : ''));
+					if(index >= str.length) {
+						clearInterval(timer);
+					}
+				}, 100);
+			};
+			$("#autotype").autotype();
+		</script>
+	</body>
+
+</html>
